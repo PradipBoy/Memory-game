@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="logo.png"/>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="game.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Jaini&family=Jolly+Lodger&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <script src="script.js" defer></script>
+
+</head>
+
+<body>
+
+    <nav>
+        <a href="" class="logo"><img src="logo.png" height="50" alt="LOGO"></a>
+
+        <span class="title">Memory Card Game</span>
+
+        <div class="links">
+            <a href="#" class="link">About Us</a>
+            <a href="#" class="link">Help</a>
+        </div>
+    </nav>
+
+    <div class="input-container">
+        <div class="box">
+
+            <div class="input-card">
+
+                <div class="name-input">
+                    <i class="fa-regular fa-user user-icon-1"></i>
+                    <input type="text" placeholder="Player 1" class="plr-1">
+
+                    <i class="fa-regular fa-user user-icon-2"></i>
+                    <input type="text" placeholder="Player 2" class="plr-2">
+                </div>
+
+                <span class="text">Write Name Of Two Players</span>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="play-btn">
+        <span>PLAY <i class="fa-solid fa-play"></i></span>
+    </div>
+
+    <div class="game-container">
+        <div class="players">
+
+            <div class="player-1">
+                <span class="name-1"></span>
+                <span>SCORE : </span>
+            </div>
+            <div class="player-2">
+                <span class="name-2"></span>
+                <span>SCORE : </span>
+            </div>
+        </div>
+        <div class="cards">
+
+            <div class="card"></div>
+            
+            <div class="card"></div>
+        </div>
+    </div>
+
+</body>
+</html>

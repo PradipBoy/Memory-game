@@ -1,3 +1,7 @@
+body {
+    overflow: visible;
+}
+
 .game-container.display {
     z-index: 0;
     display: flex;
@@ -19,7 +23,8 @@
     font-size: 1.6rem;
 }
 
-.player-1, .player-2 {
+.player-1,
+.player-2 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -40,21 +45,51 @@
     grid-template-columns: repeat(11, 1fr);
     border: 5px solid #BB6368;
     border-radius: 0.25rem;
-}
 
+}
 .card.display {
-    height: 4rem;
     width: 4rem;
+    height: 4rem;
     background-color: #151313;
     border-radius: 0.25rem;
-    transform: rotateX(5deg) rotateY(5deg);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-    border: 1px solid #ccc;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
     cursor: pointer;
+    transform-style: preserve-3d;
+    /* Start rotated 180deg on Y */
+    transform: rotateY(var(--angle, 180deg));
+    --angle: 180deg;
+
+    /* offset-path: path("M 0 0 C 20 0, 80 0, 300 500");
+    transform-box: fill-box;
+    
+    offset-distance: 0%;
+    offset-rotate: 0deg; */
+}
+
+@keyframes moveAndRotate {
+    from {
+        offset-distance: 0%;
+        transform: rotateZ(180deg);
+    }
+    to {
+        offset-distance: 100%;
+        transform: rotateZ(0deg);
+    }
+}
+
+.card.display::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url(logo.png) no-repeat center/cover;
+    border-radius: 0.25rem;
+    transform: rotateY(0deg);
+    backface-visibility: hidden;
 }
 
 .card:hover {
-    transform: rotateX(0deg) rotateY(0deg);
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
 }

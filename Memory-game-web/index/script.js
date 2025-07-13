@@ -13,7 +13,13 @@ const name2 = document.querySelector(".name-2")
 const noDisplay = "none"
 const display = "flex"
 
+
+
 playBtn.addEventListener("click", init)
+
+card.forEach(e => {
+    e.addEventListener("click",() => flipCard(e))
+})
 
 player1.addEventListener("focus", addAnimation1)
 player2.addEventListener("focus", addAnimation2)
@@ -49,6 +55,13 @@ function init() {
     players.querySelectorAll("span").forEach(e => {
         e.style.display = display
     })
+
+    document.querySelectorAll('.card.display').forEach(card => {
+        card.addEventListener('click', () => {
+          card.classList.toggle('flip');
+        });
+      });
+
     card.forEach(e => {
         e.classList.add("display")
     });
@@ -65,3 +78,9 @@ function init() {
         name2.innerText = player2.value
     }
 }
+
+function flipCard(elem) {
+    const current = getComputedStyle(elem).getPropertyValue('--angle').trim();
+    const next = current === '180deg' ? '0deg' : '180deg';
+    elem.style.setProperty('--angle', next);
+  }

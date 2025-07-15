@@ -39,15 +39,6 @@ let player2Score = 0;
 score1.innerText = `SCORE: ${player1Score.toString().padStart(2, '0')}`
 score2.innerText = `SCORE: ${player2Score.toString().padStart(2, '0')}`
 
-player1.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") player2.focus()
-})
-player2.addEventListener("keypress", (e) => {
-    setTimeout(() => {
-        if (e.key === "Enter") playBtn.click()
-    }, 500)
-})
-
 player1.addEventListener('input', saveProgress);
 player2.addEventListener('input', saveProgress);
 
@@ -68,6 +59,10 @@ const cardBg = [
 ]
 
 function init() {
+    result.style.display = "none";
+    result.style.animation = "none";
+    result.innerText = "";
+    localStorage.removeItem("lastResult");
     applyStyle()
     addPlayerName()
     addCards()
@@ -93,10 +88,9 @@ function applyStyle() {
     players.classList.add("display")
     cards.classList.add("display")
 
-
-
     players.querySelectorAll("span").forEach(e => {
         e.style.display = display
+
     })
     name1.style.display = display
     name2.style.display = display
@@ -240,12 +234,17 @@ function saveProgress() {
         player2Name,
         background: body.style.backgroundImage || "",
     };
-    
+
 
     localStorage.setItem('memoryGameProgress', JSON.stringify(progress));
 }
 
 function loadProgress() {
+
+    result.style.display = "none";
+    result.style.animation = "none";
+    result.innerText = "";
+
     const saved = localStorage.getItem('memoryGameProgress');
     if (saved) {
         const data = JSON.parse(saved);
@@ -256,17 +255,6 @@ function loadProgress() {
             // fallback to game bg or landing bg as appropriate
             body.style.backgroundImage = 'url(gameBG2.png)';
         }
-
-        // Restore saved result if any
-        const savedResult = localStorage.getItem('memoryGameResult');
-        if (savedResult) {
-            result.innerText = savedResult;
-            result.style.display = display;
-            result.style.animation = "showResult 1.125s linear forwards";
-        } else {
-            result.style.display = noDisplay;
-        }
-
 
 
         // Restore player names and input fields
@@ -370,9 +358,11 @@ function rebuildCards(savedCards) {
 
     updateTurnDisplay();
 }
-
 function backToLanding() {
-    result.style.animation = "none"
+    result.style.display = "none";
+    result.style.animation = "none";
+    result.innerText = "";
+    
     gameContainer.classList.remove("display");
     players.classList.remove("display");
     cards.classList.remove("display");
@@ -383,7 +373,6 @@ function backToLanding() {
     score2.style.display = noDisplay
 
     body.style.backgroundImage = "url(bg.png)";
-
 
     inputContainer.style.display = "flex";
     playBtn.style.display = "flex";
@@ -403,25 +392,22 @@ function backToLanding() {
     player1.value = "";
     player2.value = "";
 
+
     localStorage.removeItem('memoryGameProgress');
+    localStorage.removeItem('lastResult');
 }
 
 function showResult() {
-    let message = "";
-
     if (player1Score > player2Score) {
-        message = `WON by ${name1.innerText}!!`;
+        result.innerText = `WON by ${name1.innerText}!!`;
     } else if (player2Score > player1Score) {
-        message = `WON by ${name2.innerText}!!`;
+        result.innerText = `WON by ${name2.innerText}!!`;
     } else {
-        message = `DRAW !!`;
+        result.innerText = `DRAW !!`;
     }
 
-    result.innerText = message;
     result.style.display = display;
     result.style.animation = "showResult 1.125s linear forwards";
-
-    // Save result message in localStorage
-    localStorage.setItem('memoryGameResult', message);
 }
+
 
